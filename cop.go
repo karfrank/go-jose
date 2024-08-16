@@ -1,6 +1,8 @@
 package jose
 
-import "errors"
+import (
+	"errors"
+)
 
 // VerifyCOP works exactly like Verify but supports OpenBanking crit claims used by CoP
 func (obj JSONWebSignature) VerifyCOP(verificationKey interface{}) ([]byte, error) {
@@ -51,8 +53,11 @@ func (obj JSONWebSignature) DetachedVerifyCOP(payload []byte, verificationKey in
 }
 
 var supportedCriticalCOP = map[string]bool{
-	headerB64:                       true,
-	"http://openbanking.org.uk/iat": true,
-	"http://openbanking.org.uk/iss": true,
-	"http://openbanking.org.uk/tan": true,
+	headerB64:                            true,
+	"http://payments-services.co.uk/iat": true,
+	"http://payments-services.co.uk/iss": true,
+	"http://payments-services.co.uk/tan": true,
+	"http://openbanking.org.uk/iat":      true,
+	"http://openbanking.org.uk/iss":      true,
+	"http://openbanking.org.uk/tan":      true,
 }
