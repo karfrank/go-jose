@@ -2,6 +2,7 @@ package jose
 
 import (
 	"errors"
+	"fmt"
 )
 
 // VerifyCOP works exactly like Verify but supports OpenBanking crit claims used by CoP
@@ -34,13 +35,13 @@ func (obj JSONWebSignature) DetachedVerifyCOP(payload []byte, verificationKey in
 
 	for _, name := range critical {
 		if !supportedCriticalCOP[name] {
-			return ErrCryptoFailure
+			return fmt.Errorf("Unsupported crit value")
 		}
 	}
 
 	input, err := obj.computeAuthData(payload, &signature)
 	if err != nil {
-		return ErrCryptoFailure
+		return fmt.Errorf("unable to compute auth data: %v", err)
 	}
 
 	alg := headers.getSignatureAlgorithm()
@@ -49,7 +50,7 @@ func (obj JSONWebSignature) DetachedVerifyCOP(payload []byte, verificationKey in
 		return nil
 	}
 
-	return ErrCryptoFailure
+	return fmt.Errorf("unable to verify signature: %v", err)
 }
 
 var supportedCriticalCOP = map[string]bool{
