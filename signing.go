@@ -521,11 +521,3 @@ func (obj JSONWebSignature) headers() []Header {
 	}
 	return headers
 }
-
-// AddSupportedCrit adds additional non-standard crit headers to the
-// supported list
-func (obj JSONWebSignature) AddSupportedCrit(crit ...string) {
-	for _, c := range crit {
-		supportedCritical[c] = struct{}{}
-	}
-}
