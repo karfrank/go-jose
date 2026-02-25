@@ -559,9 +559,9 @@ func makeRawMessage(b []byte) *json.RawMessage {
 	return &rm
 }
 
-// AddSupportedCrit adds additional non-standard crit headers to the list of
-// support crit headers
-func AddSupportedCrit(crit ...string) {
+// AddCustomCrit adds additional non-standard crit headers to the list of
+// supported names
+func AddCustomCrit(crit ...string) {
 	for _, c := range crit {
 		supportedCritical[c] = struct{}{}
 	}
